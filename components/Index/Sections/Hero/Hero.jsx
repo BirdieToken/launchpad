@@ -106,7 +106,7 @@ const Hero = () => {
         </p>
       </div>
 
-      <div class={styles.hero_right}>
+      <div className={styles.hero_right}>
         <img src='/images/hero.png' alt='' />
       </div>
 
