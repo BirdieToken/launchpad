@@ -54,7 +54,7 @@ const Hero = () => {
     }
 
     let contract = new web3.eth.Contract(JSON.parse(abi), process.env.NEXT_PUBLIC_PRESALE_ADDRESS)
-    let trans = await contract.methods.purchaseTokens(String(to * (10 ** 18))).send({ from: user?.get('ethAddress'), value: web3.utils.toWei(String(from), 'ether') })
+    let trans = await contract.methods.purchaseTokens(String(BigInt(to * (10 ** 18)))).send({ from: user?.get('ethAddress'), value: web3.utils.toWei(String(from), 'ether') })
     console.log(trans)
   }
 
