@@ -15,7 +15,7 @@ const Hero = () => {
   const from_on_change = (value) => {
     setFrom(value)
 
-    setTo(value / 0.00000001)
+    setTo(Number(value / 0.00000001).toFixed(8).replace(/\.?0+$/, ""))
   }
 
   const to_on_change = (value) => {
@@ -31,13 +31,14 @@ const Hero = () => {
    
     if (localStorage.walletconnect) {
       await enableWeb3({
-        provider: 'walletconnect'
+        provider: 'walletconnect',
+        chainId: 1
       })
   
       let provider = new WalletConnectProvider({
         rpc: {
-          1: 'https://rpc.ankr.com/eth',
-          4: 'https://rpc.ankr.com/eth_rinkeby'
+          1: 'https://speedy-nodes-nyc.moralis.io/0ce2a68b03c70533ec3210d3/eth/mainnet',
+          // 4: 'https://rpc.ankr.com/eth_rinkeby'
         }
       })
 
@@ -46,13 +47,14 @@ const Hero = () => {
       web3 = new Web3(provider)
     } else {
       await enableWeb3({
-        provider: 'metamask'
+        provider: 'metamask',
+        chainId: 1
       })
       web3 = new Web3(window.ethereum)
     }
 
     let contract = new web3.eth.Contract(JSON.parse(abi), process.env.NEXT_PUBLIC_PRESALE_ADDRESS)
-    let trans = await contract.methods.purchaseTokens(String(to * (10 ** 18))).send({ from: user?.get('ethAddress'), gas: 6000000, value: web3.utils.toWei(String(from), 'ether') })
+    let trans = await contract.methods.purchaseTokens(String(to * (10 ** 18))).send({ from: user?.get('ethAddress'), value: web3.utils.toWei(String(from), 'ether') })
     console.log(trans)
   }
 
