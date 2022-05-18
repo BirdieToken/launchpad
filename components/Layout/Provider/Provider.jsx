@@ -8,7 +8,7 @@ const Provider = ({setSignInModal}) => {
     await authenticate({
       provider: 'walletconnect',
       signingMessage: 'Sign in using WalletConnect.',
-      chainId: 137
+      chainId: 1
     })
 
     setSignInModal(false)
@@ -17,6 +17,7 @@ const Provider = ({setSignInModal}) => {
   const sign_in_metamask = async() => {
     await authenticate({
       signingMessage: 'Sign in using Metamask.',
+      chainId: 1
     })
     setSignInModal(false)
   }
